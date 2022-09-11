@@ -24,9 +24,17 @@ RSpec.describe User, type: :model do
 
       end
 
-    describe "creating user with invalid info"
+    describe "creating user with invalid info" do
 
+      ['',nil,'test'].each do |invalid_email|
+        it "should not create user with #{invalid_email}" do
+          user = described_class.new(name:,email: invalid_email, password:)
+          expect(user).to be_invalid
+        end
+      end
     end
+
+  end
 
   end
 end
