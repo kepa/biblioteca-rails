@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
       let(:email) { Faker::Internet.email }
       let(:password) { Faker::Alphanumeric.alpha(number: 6) }
 
-      describe "creating user with valid info" do
+      describe "with valid info" do
 
         it "should create a valid user" do
 
@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
 
       end
 
-    describe "creating user with invalid info" do
+    describe "with invalid info" do
 
       ['',nil,'test'].each do |invalid_email|
         it "should not create user with #{invalid_email}" do
