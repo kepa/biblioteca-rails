@@ -37,4 +37,19 @@ RSpec.describe User, type: :model do
   end
 
   end
+
+  context "#make_admin" do
+    let(:user) { create(:user) }
+
+    describe "transforming normal user to admin" do
+
+      it "should update admin atribute" do
+        user.make_admin
+        expect(user.admin?).to be true
+      end
+
+    end
+
+  end
+
 end
