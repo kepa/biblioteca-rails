@@ -1,5 +1,6 @@
 class RentalsController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
+  #before_action :set_book, only: :create
 
   def index
   end
@@ -41,6 +42,10 @@ class RentalsController < ApplicationController
 
   def rental_params
     params.require(:rental).permit(:book_id, :user_id)
+  end
+
+  def book_checked_out
+    redirect_to root_path if Book.checked_out?(rental_params[:book_id])
   end
 
 end
