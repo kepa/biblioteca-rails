@@ -4,7 +4,7 @@ class Rental < ApplicationRecord
 
   belongs_to :user
 
-  after_initialize :init_check_out_book
+  before_create :init_check_out_book
 
   def init_check_out_book
     self.active = true

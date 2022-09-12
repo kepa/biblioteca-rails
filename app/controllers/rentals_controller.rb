@@ -8,9 +8,20 @@ class RentalsController < ApplicationController
   end
 
   def new
+    @rental = Rental.new
   end
 
   def create
+
+    @rental = Rental.new(rental_params)
+
+    if @rental.save
+      #redirect_to rental_url(@rental)
+      redirect_to root_path
+    else
+      redirect_to root_path
+    end
+
   end
 
   def edit
@@ -25,10 +36,10 @@ class RentalsController < ApplicationController
   private
 
   def set_rental
-    @book = Rental.find(params[:id])
+    @rental = Rental.find(params[:id])
   end
 
-  def book_params
+  def rental_params
     params.require(:rental).permit(:book_id, :user_id)
   end
 
