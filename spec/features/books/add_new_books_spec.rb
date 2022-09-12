@@ -15,7 +15,7 @@ RSpec.describe "AddNewBooks", type: :feature do
       fill_in 'Title', with: title
       fill_in 'Author', with: author
       fill_in 'Category', with: category
-      click_on 'Add book'
+      click_on 'Create Book'
       expect(page).to have_content(title)
     end
 
