@@ -12,4 +12,10 @@ class Rental < ApplicationRecord
     Book.find(book_id).toggle_check_out
   end
 
+  def finalize
+    self.active = false
+    self.checkin_date = Time.now
+    Book.find(book_id).toggle_check_out
+  end
+
 end

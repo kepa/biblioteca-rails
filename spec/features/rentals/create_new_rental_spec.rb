@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'pry'
 
 RSpec.describe "CreateNewRental", type: :feature do
 
@@ -7,13 +6,22 @@ RSpec.describe "CreateNewRental", type: :feature do
     let(:user_admin) { create(:user, :admin) }
     let(:normal_user) { create(:user) }
     let(:book) { create(:book) }
+    let(:book_checked_out) { create(:book, :checked_out) }
 
     it "should rent a book if normal user" do
       login_as(normal_user, :scope => :user)
       visit book_path(book)
       click_on 'Take out this book'
-      #expect(page).to have_content("Rental #")
+      expect(page).to have_content("Rental #")
       expect(normal_user.rentals.count).to eql(1)
+    end
+
+    it "should not rent a book if checked out" do
+      login_as(normal_user, :scope => :user)
+      visit book_path(book_checked_out)
+      click_on 'Take out this book'
+      expect(current_path).to eql(root_path)
+      expect(normal_user.rentals.count).to eql(0)
     end
 
     it "should let admin rent a book for normal user" do
@@ -24,7 +32,7 @@ RSpec.describe "CreateNewRental", type: :feature do
       fill_in 'Book', with: book.id
 
       click_on 'Create Rental'
-      expect(current_path).to eql(root_path)
+      expect(page).to have_content("Rental #")
       expect(normal_user.rentals.count).to eql(1)
     end
 

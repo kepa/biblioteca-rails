@@ -1,6 +1,6 @@
 class RentalsController < ApplicationController
-  before_action :set_book, only: %i[show edit update destroy]
-  #before_action :set_book, only: :create
+  before_action :set_rental, only: %i[show edit update destroy]
+  before_action :book_checked_out, only: :create
 
   def index
   end
@@ -17,8 +17,7 @@ class RentalsController < ApplicationController
     @rental = Rental.new(rental_params)
 
     if @rental.save
-      #redirect_to rental_url(@rental)
-      redirect_to root_path
+      redirect_to rental_url(@rental)
     else
       redirect_to root_path
     end
@@ -29,6 +28,14 @@ class RentalsController < ApplicationController
   end
 
   def update
+    @rental.finalize
+
+    if @rental.save
+      redirect_to rental_url(@rental)
+    else
+      redirect_to root_path
+    end
+
   end
 
   def destroy

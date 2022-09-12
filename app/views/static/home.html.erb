@@ -1,2 +1,10 @@
 <h1>Static#home</h1>
 <p>Find me in app/views/static/home.html.erb</p>
+
+<% unless current_user.nil? %>
+	<% unless current_user.rentals.nil? %>
+		<% current_user.rentals.each do |rental| %>
+			<p> <%= link_to rental.id, rental_path(rental) %> </p>
+		<% end %>
+	<% end %>	
+<% end %>
