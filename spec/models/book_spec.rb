@@ -1,4 +1,5 @@
 require 'rails_helper'
+require "pry"
 
 RSpec.describe Book, type: :model do
   context ".create" do
@@ -32,42 +33,24 @@ RSpec.describe Book, type: :model do
 
   end
 
-  context "#take_out" do
-    let(:book) {create(:book)}
-    let(:checked_out_book) {create(:book, :checked_out)}
+  context "#toggle_check_out" do
+    let(:book) { create(:book) }
+    let(:borowed_book) { create(:book, :checked_out)}
 
     describe "borrowing a book:" do
-      it "should check out an available book" do
-        book.take_out
-        expect(book.checked_out?).to be true
-        expect(book).to be_valid
-      end
-
-      it "should not check out an unavailable book" do
-        checked_out_book.take_out
-
-        expect(checked_out_book.errors.count).to eql(1)
+      it "should checkout a book" do
+        book.toggle_check_out
+        expect(Book.checked_out?(book.id)).to be true
       end
     end
-  end
 
-  context "#check_in" do
-    let(:book) {create(:book)}
-    let(:checked_out_book) {create(:book, :checked_out)}
-
-    describe "returning a book:" do
-      it "should check in an available book" do
-        checked_out_book.check_in
-        expect(checked_out_book.checked_out?).to be false
-        expect(checked_out_book).to be_valid
-      end
-
-      it "should not check in an unavailable book" do
-        book.check_in
-
-        expect(book.errors.count).to eql(1)
+    describe "returning a book" do
+      it "should return a book" do
+        borowed_book.toggle_check_out
+        expect(Book.checked_out?(borowed_book.id)).to be false
       end
     end
+
   end
 
 end
