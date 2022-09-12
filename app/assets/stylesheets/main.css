@@ -27,10 +27,15 @@ body {
 }
 
 .left-align {
-	flex: 2;
+	flex: 5;
 	display: flex;
 	gap: 50px;
 	align-items: center;
+}
+
+.right-align {
+	display: flex;
+	gap: 10px;
 }
 
 .navbar h1 {
