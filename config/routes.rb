@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :books
+  resources :books, :rentals
   devise_for :users
   get 'static/home'
 
