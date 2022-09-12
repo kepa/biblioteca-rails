@@ -34,11 +34,22 @@
     </div>
     
     <div class="main-cont">
+
       <% unless notice.nil? or alert.nil? %>
         <%= render 'alerts' %>
       <% end %>
+
+
+      <div class="center-cont">
+        <div class="left-pane">
+          <%= yield %>
+        </div>
+
+        <div class="right-pane">
+          <%= yield :right_pane %>
+        </div>
+      </div>
       
-      <%= yield %>
     </div>
   </body>
 </html>

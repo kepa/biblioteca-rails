@@ -5,6 +5,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-family: 'Helvetica', sans-serif !important;
+	background-color: #e7e8e9;
 }
 
 .navbar {
@@ -42,4 +43,37 @@ body {
 	font-size: 16pt;
 	font-weight: 900;
 	flex: 2;
+}
+
+.main-cont {
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	display: flex;
+	padding-top: 60px;
+}
+
+.main-cont h1 {
+	font-size: 42pt;
+	padding: 10px 0;
+}
+
+.center-cont {
+	width: 60%;
+	display: flex;
+	padding: 2%;
+	border-radius: 30px 30px 5px 5px;
+	background-color: white;
+	
+}
+
+.left-pane {
+	flex: 2;
+	border-right: 2px solid black;
+}
+
+.right-pane {
+	flex: 1;
+	text-align: justify;
+	padding: 10px;
 }
