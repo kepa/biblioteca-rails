@@ -6,4 +6,5 @@
 
 <% if current_user.admin? %>
 	<%= button_to "Finalize rental", rental_path(@rental), method: :patch%>
+	<%= button_to "Destroy rental", rental_path(@rental), method: :delete%>
 <% end %>

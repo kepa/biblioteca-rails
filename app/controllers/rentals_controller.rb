@@ -39,6 +39,9 @@ class RentalsController < ApplicationController
   end
 
   def destroy
+    if @rental.destroy
+      redirect_to root_path
+    end
   end
 
   private
