@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "AddNewBooks", type: :feature do
-  #include Devise::Test::IntegrationHelpers
 
   describe "Adding new books to library:" do
     let(:user_admin) { create(:user, :admin) }
@@ -18,6 +17,12 @@ RSpec.describe "AddNewBooks", type: :feature do
       fill_in 'Category', with: category
       click_on 'Add book'
       expect(page).to have_content(title)
+    end
+
+    it "should not create a new book without permission" do
+      login_as(normal_user, :scope => :user)
+      visit new_book_path
+      expect(current_path).to eql(root_path)
     end
 
   end
