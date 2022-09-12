@@ -57,6 +57,7 @@ group :development, :test do
   gem "pry"
   gem 'simplecov'
   gem 'cucumber'
+  gem 'capybara'
 end
 
 group :development do
