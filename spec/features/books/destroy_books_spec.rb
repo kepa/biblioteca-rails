@@ -15,12 +15,5 @@ RSpec.describe "DestroyBooks", type: :feature do
       expect(current_path).to eql(root_path)
     end
 
-    xit "should not be able to delete a book without permission" do
-      login_as(normal_user, :scope => :user)
-      visit book_path(book)
-      click_on 'Delete book'
-      expect(current_path).to eql(book_path(book))
-    end
-
   end
 end
