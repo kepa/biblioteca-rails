@@ -56,6 +56,7 @@ group :development, :test do
   gem 'faker', '~> 2.21'
   gem "pry"
   gem 'simplecov'
+  gem 'cucumber'
 end
 
 group :development do
