@@ -40,10 +40,20 @@ RSpec.describe Rental, type: :model do
         expect(rental.checkin_date.day).to eql(Time.now.utc.day)
       end
 
-      it "should set book's checkout_status" do
-        rental.finalize
-        rental.save
-        expect(Book.checked_out?(book_checked_out.id)).to be false
+    end
+
+  end
+
+  context "#destroy" do
+
+    describe "deliting a rental record:" do
+      let(:user) { create(:user) }
+      let(:book_checked_out) { create(:book, :checked_out) }
+      let(:rental) { create(:rental, book_id:book_checked_out.id, user_id: user.id) }
+
+      it "should delete from user's rentals" do
+        rental.destroy
+        expect(user.rentals.count).to eql(0)
       end
 
     end
