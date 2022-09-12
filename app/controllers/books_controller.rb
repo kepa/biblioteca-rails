@@ -18,8 +18,8 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_url(@book)
     else
-      render :new
       flash[:notice] = "Invalid book creation"
+      render :new
     end
 
   end
