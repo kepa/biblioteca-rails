@@ -1,0 +1,40 @@
+body {
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Helvetica', sans-serif !important;
+}
+
+.navbar {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color:#032d53 ;
+}
+
+.navbar a{
+	text-decoration: none;
+	color: white;
+}
+
+.navbar-center-cont {
+	width: 60%;
+	padding: 15px 0;
+	display: flex;
+	flex-direction: row;
+}
+
+.left-align {
+	flex: 2;
+	display: flex;
+	gap: 50px;
+	align-items: center;
+}
+
+.navbar h1 {
+	font-size: 16pt;
+	font-weight: 900;
+	flex: 2;
+}

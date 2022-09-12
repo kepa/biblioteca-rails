@@ -8,11 +8,34 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="navbar">
+      <div class="navbar-center-cont">
+        <div class="left-align">
+          <%= link_to(root_path) do %>
+            <h1>library_sys</h1>
+          <% end %>
+          <%= link_to "Books", books_path %>
+        </div>
+        <div class="right-align">
+          <% if user_signed_in? %>
+            <%= button_to 'Sign-out', destroy_user_session_path, method: :delete%>
+          <% else %>
+            <%= button_to 'Sign-in', new_user_session_path, method: :get%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="main-cont">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
   </body>
 </html>
