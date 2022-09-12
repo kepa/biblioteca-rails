@@ -38,6 +38,11 @@ class BooksController < ApplicationController
   end
 
   def destroy
+    if @book.destroy and current_user.admin?
+      redirect_to root_path
+    else
+      render :show
+    end
   end
 
   private
