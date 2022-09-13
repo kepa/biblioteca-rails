@@ -6,6 +6,7 @@ class BooksController < ApplicationController
     @books = Book.all
     @books = Book.filter_by_author(params[:author]) if params[:author].present?
     @books = Book.filter_by_category(params[:category]) if params[:category].present?
+    @books = Book.filter_by_status(params[:status]) if params[:status].present?
   end
 
   def show
