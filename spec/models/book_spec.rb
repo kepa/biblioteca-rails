@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "pry"
 
 RSpec.describe Book, type: :model do
   context ".create" do
@@ -49,6 +48,70 @@ RSpec.describe Book, type: :model do
         borowed_book.toggle_check_out
         expect(Book.checked_out?(borowed_book.id)).to be false
       end
+    end
+
+  end
+
+  context "#filter_by_author" do
+
+    describe "select books by author:" do
+      let(:author) {::Faker::Book.author}
+
+      before do
+        (1..2).each do
+          Book.create(title: ::Faker::Book.title, category: ::Faker::Book.genre, author: author)
+        end
+      end
+
+      it "should return books by the same author" do
+        result = Book.filter_by_author(author)
+        expect(result.count).to eql(2)
+      end
+
+      it "should not return books by non existant author" do
+        result = Book.filter_by_author("test")
+        expect(result.count).to eql(0)
+      end
+
+    end
+
+  end
+
+  context "#filter_by_category" do
+    let(:category) {::Faker::Book.genre}
+
+    before do
+      (1..2).each do
+        Book.create(title: ::Faker::Book.title, category: category, author: ::Faker::Book.author)
+      end
+    end
+
+    describe "select books by category:" do
+
+      it "should return books by the same category" do
+        result = Book.filter_by_category(category)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
+  context "#filter_by_status" do
+
+    before do
+      (1..2).each do
+        Book.create(title: ::Faker::Book.title, category: ::Faker::Book.genre, author: ::Faker::Book.author, check_out: false)
+      end
+    end
+
+    describe "select books by status:" do
+
+      it "should return books by status" do
+        result = Book.filter_by_status(false)
+        expect(result.count).to eql(2)
+      end
+
     end
 
   end
