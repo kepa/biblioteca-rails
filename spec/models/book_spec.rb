@@ -97,4 +97,23 @@ RSpec.describe Book, type: :model do
 
   end
 
+  context "#filter_by_status" do
+
+    before do
+      (1..2).each do
+        Book.create(title: ::Faker::Book.title, category: ::Faker::Book.genre, author: ::Faker::Book.author, check_out: false)
+      end
+    end
+
+    describe "select books by status:" do
+
+      it "should return books by status" do
+        result = Book.filter_by_status(false)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
 end
