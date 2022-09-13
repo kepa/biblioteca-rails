@@ -4,9 +4,12 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.all
-    @books = Book.filter_by_author(params[:author]) if params[:author].present?
-    @books = Book.filter_by_category(params[:category]) if params[:category].present?
-    @books = Book.filter_by_status(params[:status]) if params[:status].present?
+
+    #Simplifying the many filter calls, its called on demand now
+
+    filtering_params(params).each do |key, value|
+      @books = @books.public_send("filter_by_#{key}", value) if value.present?
+    end
   end
 
   def show
@@ -61,6 +64,10 @@ class BooksController < ApplicationController
 
   def only_admin
     redirect_to root_path unless current_user.admin?
+  end
+
+  def filtering_params(params)
+    params.slice(:author,:category,:status)
   end
 
 end
