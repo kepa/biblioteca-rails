@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   before_action :only_admin, only: %i[new edit]
 
   def index
+    @books = Book.all
   end
 
   def show

@@ -1,2 +1,18 @@
-<h1>All books</h1>
+<h1>Library</h1>
 
+<div class="library">
+<% @books.each do |book|  %>
+	<%= link_to(book, class: "book-item active-#{book.check_out}") do%>
+		<h2><%= book.title %></h2>
+		<p><b>Author:</b>	<%= book.author %></p>
+		<p><b>Caregory:</b> <%= book.category %></p>
+		
+	<% end %>
+<% end %>
+</div>
+
+<%if current_user.admin?%>
+
+	<%= link_to "Add new book", new_book_path%>
+
+<% end %>
