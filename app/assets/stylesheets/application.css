@@ -12,4 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= reset.css
+ *= main.css
+ *= book.css
  */
