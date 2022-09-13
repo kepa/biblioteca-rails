@@ -1,5 +1,4 @@
 require 'rails_helper'
-require "pry"
 
 RSpec.describe Book, type: :model do
   context ".create" do
@@ -54,12 +53,15 @@ RSpec.describe Book, type: :model do
   end
 
   context "#filter_by_author" do
-    let(:author) {::Faker::Book.author}
-    let(:book1) { create(:book, author: author) }
-    let(:book2) { create(:book, author: author) }
-    let(:book3) { create(:book) }
 
     describe "select books by author:" do
+      let(:author) {::Faker::Book.author}
+
+      before do
+        (1..2).each do
+          Book.create(title: ::Faker::Book.title, category: ::Faker::Book.genre, author: author)
+        end
+      end
 
       it "should return books by the same author" do
         result = Book.filter_by_author(author)
@@ -77,8 +79,12 @@ RSpec.describe Book, type: :model do
 
   context "#filter_by_category" do
     let(:category) {::Faker::Book.genre}
-    let(:book1) { create(:book, category: category) }
-    let(:book2) { create(:book, category: category) }
+
+    before do
+      (1..2).each do
+        Book.create(title: ::Faker::Book.title, category: category, author: ::Faker::Book.author)
+      end
+    end
 
     describe "select books by category:" do
 
