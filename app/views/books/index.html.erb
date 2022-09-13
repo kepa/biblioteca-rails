@@ -16,3 +16,14 @@
 	<%= link_to "Add new book", new_book_path%>
 
 <% end %>
+
+<% content_for :right_pane do %>
+	<%= form_with url: books_path, method: :get do |form| %>
+	  <%= form.label :author, "Filter by author:" %>
+	  <%= form.text_field :author %> </br>
+	  <%= form.label :category, "Filter by category:" %>
+	  <%= form.text_field :category %> </br>
+  	<%= form.submit "Filter" %>
+
+<% end %>
+<% end %>
