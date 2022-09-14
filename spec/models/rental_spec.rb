@@ -60,4 +60,63 @@ RSpec.describe Rental, type: :model do
 
   end
 
+
+  context "#filter_by_status" do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+
+    before do
+      (1..2).each do
+        Rental.create(user_id: user.id, book_id: book.id)
+      end
+    end
+
+    describe "select rentals by status:" do
+
+      it "should return active rentals" do
+        result = Rental.filter_by_status(true)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
+  context "#filter_by_checkout" do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+
+    before do
+      (1..5).each do
+        Rental.create(user_id: user.id, book_id: book.id)
+      end
+
+      Rental.first.update!(checkout_date: Time.now - 3.days)
+      Rental.second.update!(checkout_date: Time.now - 2.days)
+    end
+
+    describe "select rentals by checkout date:" do
+
+      it "should return a rental by specific date" do
+        result = Rental.filter_by_checkout(Time.now - 4.days, Time.now - 1.days)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
+  context "#book" do
+    let(:book) { create(:book) }
+    let(:user) { create(:user) }
+    let(:rental) { create(:rental, book_id:book.id, user_id: user.id) }
+
+    describe "listing book that is rented:" do
+      it "returns the name of the rented book" do
+        expect(rental.book).to eql(book.title)
+      end
+    end
+
+  end
+
 end

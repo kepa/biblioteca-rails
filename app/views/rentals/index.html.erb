@@ -1,2 +1,13 @@
-<h1>Rentals#index</h1>
-<p>Find me in app/views/rentals/index.html.erb</p>
+<h1>Rentals</h1>
+
+
+<div class="library">
+<% @rentals.each do |rental|  %>
+	<%= link_to(rental, class: "book-item") do%>
+		<h2>Rental #<%= rental.id %>: </h2>
+		<p><b>Checkout date:</b> <%= rental.checkout_date %></p>
+		
+		
+	<% end %>
+<% end %>
+</div>
