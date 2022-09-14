@@ -14,7 +14,7 @@
 	border-bottom: 1px solid lightgray;
 }
 
-.book-item h2 {
+.book-item h2, .filters h2 {
 	font-size: 16pt;
 	font-weight: 600;
 	padding: 5px 0;

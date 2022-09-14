@@ -20,30 +20,37 @@
 
 <%if current_user.admin?%>
 
-	<%= link_to "Add new book", new_book_path%>
+	
 
 <% end %>
 
 <% content_for :right_pane do %>
-<div class="filters">
-	<%= form_with url: books_path, method: :get do |form| %>
-	  <div class="input-group">
-		  <span class="input-group-addon"><%= form.label :author, "Filter by author:" %></span>
-		  <%= form.text_field :author, class:"form-control" %>
-	  </div>
 
-	  <div class="input-group">
-		  <span class="input-group-addon"><%= form.label :category, "Filter by category:" %></span>
-		  <%= form.text_field :category, class:"form-control" %> 
-	  </div>
+	<div class="filters">
+	<h2> Filters:</h2>
+		<%= form_with url: books_path, method: :get do |form| %>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.label :author, "By author:" %></span>
+			  <%= form.text_field :author, class:"form-control" %>
+		  </div>
 
-	  <div class="input-group">
-		  <span class="input-group-addon"><%= form.radio_button :status, "false" %> </span>
-		  <%= form.label :status, "Available to rent", class:"form-control" %> 
-		  <span class="input-group-addon"><%= form.radio_button :status, "true" %></span>
-		  <%= form.label :status, "Rented", class:"form-control" %> 
-	  </div class="input-group">
-  	<%= form.submit "Filter", class:"btn" %>
-   <% end %>
-</div>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.label :category, "By category:" %></span>
+			  <%= form.text_field :category, class:"form-control" %> 
+		  </div>
+
+		  <h2>Filter by availability:</h2>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.radio_button :status, "false" %> </span>
+			  <%= form.label :status, "Available to rent", class:"form-control" %> 
+		  </div>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.radio_button :status, "true" %></span>
+			  <%= form.label :status, "Rented", class:"form-control" %> 
+		  </div>
+	  	<%= form.submit "Filter", class:"btn" %>
+	   <% end %>
+	</div>
+
+	<%= button_to "Add new book", new_book_path, method: :get if current_user.admin?%>
 <% end %>
