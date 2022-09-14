@@ -1,5 +1,6 @@
 <h1>Library</h1>
 
+<%= paginate @books %>
 <div class="library">
 <% @books.each do |book|  %>
 	<%= link_to(book, class: "book-item active-#{book.check_out}") do%>

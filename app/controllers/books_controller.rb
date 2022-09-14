@@ -3,7 +3,7 @@ class BooksController < ApplicationController
   before_action :only_admin, only: %i[new edit]
 
   def index
-    @books = Book.all
+    @books = Book.page(params[:page])
 
     #Simplifying the many filter calls, its called on demand now
 
