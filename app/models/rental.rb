@@ -26,6 +26,8 @@ class Rental < ApplicationRecord
 
   def book
     Book.find(book_id).title
+  rescue ActiveRecord::RecordNotFound
+    "BOOK NOT FOUND"
   end
 
 end

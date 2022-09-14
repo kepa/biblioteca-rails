@@ -107,14 +107,17 @@ RSpec.describe Rental, type: :model do
   end
 
   context "#book" do
-    let(:book) { create(:book) }
-    let(:user) { create(:user) }
-    let(:rental) { create(:rental, book_id:book.id, user_id: user.id) }
+
 
     describe "listing book that is rented:" do
-      it "returns the name of the rented book" do
+      let(:book) { create(:book) }
+      let(:user) { create(:user) }
+      let(:rental) { Rental.create(book_id:book.id, user_id: user.id) }
+
+      it "should return the name of the rented book" do
         expect(rental.book).to eql(book.title)
       end
+
     end
 
   end
