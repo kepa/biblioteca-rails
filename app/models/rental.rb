@@ -27,4 +27,8 @@ class Rental < ApplicationRecord
     Book.find(book_id).toggle_check_out
   end
 
+  def book
+    Book.find(book_id).title
+  end
+
 end

@@ -3,6 +3,13 @@ class RentalsController < ApplicationController
   before_action :book_checked_out, only: :create
 
   def index
+    current_user.admin? ? @rentals = Rental.all : @rentals = current_user.rentals
+
+    #Simplifying the many filter calls, its called on demand now
+
+    filtering_params(params).each do |key, value|
+      @rentals = @rentals.public_send("filter_by_#{key}", value) if value.present?
+    end
   end
 
   def show
@@ -56,6 +63,10 @@ class RentalsController < ApplicationController
 
   def book_checked_out
     redirect_to root_path if Book.checked_out?(rental_params[:book_id])
+  end
+
+  def filtering_params(params)
+    params.slice(:status,:checkout)
   end
 
 end
