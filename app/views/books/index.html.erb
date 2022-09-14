@@ -4,7 +4,13 @@
 <div class="library">
 <% @books.each do |book|  %>
 	<%= link_to(book, class: "book-item active-#{book.check_out}") do%>
-		<h2><%= book.title %></h2>
+		<h2>
+			<%= book.title %> 
+			<% if book.check_out %>
+				<span class="label label-warning">Rented</span>
+			<% end %>				
+		</h2> 
+
 		<p><b>Author:</b>	<%= book.author %></p>
 		<p><b>Caregory:</b> <%= book.category %></p>
 		
@@ -19,16 +25,25 @@
 <% end %>
 
 <% content_for :right_pane do %>
+<div class="filters">
 	<%= form_with url: books_path, method: :get do |form| %>
-	  <%= form.label :author, "Filter by author:" %>
-	  <%= form.text_field :author %> </br>
-	  <%= form.label :category, "Filter by category:" %>
-	  <%= form.text_field :category %> </br>
-	  <%= form.radio_button :status, "false" %>
-	  <%= form.label :status, "Available to rent" %> </br>
-	  <%= form.radio_button :status, "true" %>
-	  <%= form.label :status, "Rented" %> </br>
-  	<%= form.submit "Filter" %>
+	  <div class="input-group">
+		  <span class="input-group-addon"><%= form.label :author, "Filter by author:" %></span>
+		  <%= form.text_field :author, class:"form-control" %>
+	  </div>
 
-<% end %>
+	  <div class="input-group">
+		  <span class="input-group-addon"><%= form.label :category, "Filter by category:" %></span>
+		  <%= form.text_field :category, class:"form-control" %> 
+	  </div>
+
+	  <div class="input-group">
+		  <span class="input-group-addon"><%= form.radio_button :status, "false" %> </span>
+		  <%= form.label :status, "Available to rent", class:"form-control" %> 
+		  <span class="input-group-addon"><%= form.radio_button :status, "true" %></span>
+		  <%= form.label :status, "Rented", class:"form-control" %> 
+	  </div class="input-group">
+  	<%= form.submit "Filter", class:"btn" %>
+   <% end %>
+</div>
 <% end %>

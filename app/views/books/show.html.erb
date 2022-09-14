@@ -1,17 +1,20 @@
-<h1><%= @book.title %></h1>
-<p><b>Author:</b> <%= @book.author %></p>
-<p><b>Category:</b> <%= @book.category %></p>
-<p><b>Checked out:</b> <%= @book.check_out %></p>
 
+<div class="book-info">
+	<h1><%= @book.title %></h1>
+	<p><b>Author:</b> <%= @book.author %></p>
+	<p><b>Category:</b> <%= @book.category %></p>
+	<p><b>Checked out:</b> <%= @book.check_out %></p>
+</div>
 
 <% content_for :right_pane do %>
 	<% if current_user.admin? %>
+		<%= button_to "Edit book", edit_book_path(@book), method: :get %>
 		<%= button_to "Delete book", book_path(@book), method: :delete %>
-		<%= button_to "Take out this book", new_rental_path(@book), method: :get%>
+		<%= button_to "Take out this book", new_rental_path(@book), method: :get unless @book.check_out%>
 	<% end %>
 
 	<% unless current_user.admin? %>
-		<%= button_to "Take out this book", rentals_path(:rental => {:book_id => @book.id, :user_id => current_user.id}), method: :post %>
+		<%= button_to "Take out this book", rentals_path(:rental => {:book_id => @book.id, :user_id => current_user.id}), method: :post unless @book.check_out %>
 	<% end %>
 
 <% end %>

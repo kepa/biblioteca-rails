@@ -1,6 +1,6 @@
 <h1>Rentals</h1>
 
-
+<%= paginate @rentals %>
 <div class="library">
 <% @rentals.each do |rental|  %>
 	<%= link_to(rental, class: "book-item") do%>

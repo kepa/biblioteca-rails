@@ -3,7 +3,7 @@ class RentalsController < ApplicationController
   before_action :book_checked_out, only: :create
 
   def index
-    current_user.admin? ? @rentals = Rental.all : @rentals = current_user.rentals
+    current_user.admin? ? @rentals = Rental.page(params[:page]) : @rentals = current_user.rentals.page(params[:page])
 
     #Simplifying the many filter calls, its called on demand now
 
