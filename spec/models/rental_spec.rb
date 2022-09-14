@@ -81,4 +81,28 @@ RSpec.describe Rental, type: :model do
 
   end
 
+  context "#filter_by_checkout" do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+
+    before do
+      (1..5).each do
+        Rental.create(user_id: user.id, book_id: book.id)
+      end
+
+      Rental.first.update!(checkout_date: Time.now - 3.days)
+      Rental.second.update!(checkout_date: Time.now - 2.days)
+    end
+
+    describe "select rentals by checkout date:" do
+
+      it "should return a rental by specific date" do
+        result = Rental.filter_by_checkout(Time.now - 4.days, Time.now - 1.days)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
 end
