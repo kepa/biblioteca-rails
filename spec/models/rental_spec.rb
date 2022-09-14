@@ -60,6 +60,7 @@ RSpec.describe Rental, type: :model do
 
   end
 
+
   context "#filter_by_status" do
     let(:user) { create(:user) }
     let(:book) { create(:book) }

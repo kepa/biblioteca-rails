@@ -4,9 +4,6 @@ class Rental < ApplicationRecord
 
   belongs_to :user
 
-  scope :filter_by_status, -> (status) {where active: status}
-  scope :filter_by_checkout, -> (init_date, end_date) {where("checkout_date >= ? and checkout_date < ?", init_date, end_date) }
-
   before_create :init_check_out_book
 
   after_destroy :revert_checkout
