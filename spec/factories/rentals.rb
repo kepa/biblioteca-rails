@@ -8,5 +8,9 @@ FactoryBot.define do
       active { false }
     end
 
+    trait :checked_out_2_days_ago do
+      checkout_date {Time.now - 2.days}
+    end
+
   end
 end
