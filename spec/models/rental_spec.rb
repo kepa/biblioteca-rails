@@ -60,4 +60,25 @@ RSpec.describe Rental, type: :model do
 
   end
 
+  context "#filter_by_status" do
+    let(:user) { create(:user) }
+    let(:book) { create(:book) }
+
+    before do
+      (1..2).each do
+        Rental.create(user_id: user.id, book_id: book.id)
+      end
+    end
+
+    describe "select rentals by status:" do
+
+      it "should return active rentals" do
+        result = Rental.filter_by_status(true)
+        expect(result.count).to eql(2)
+      end
+
+    end
+
+  end
+
 end
