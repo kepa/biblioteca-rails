@@ -4,7 +4,7 @@
 <div class="library">
 <% @rentals.each do |rental|  %>
 	<%= link_to(rental, class: "book-item") do%>
-		<h2>Rental #<%= rental.id %>: </h2>
+		<h2>Rental #<%= rental.id %>: <%= rental.book %></h2>
 		<p><b>Checkout date:</b> <%= rental.checkout_date %></p>
 		
 		

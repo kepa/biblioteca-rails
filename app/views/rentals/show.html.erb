@@ -2,7 +2,7 @@
 <p><b>Check-out date</b> <%= @rental.checkout_date %></p>
 <p><b>Check-in date</b> <%= @rental.checkin_date %></p>
 <p><b>Active:</b> <%= @rental.active %></p>
-<p><b>Book: </b> <%= Book.find(@rental.book_id).title %></p>
+<p><b>Book: </b> <%= link_to @rental.book, book_path(@rental.book_id) %></p>
 
 <% if current_user.admin? %>
 	<%= button_to "Finalize rental", rental_path(@rental), method: :patch%>
