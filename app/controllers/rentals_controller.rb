@@ -6,20 +6,9 @@ class RentalsController < ApplicationController
   before_action :base_index_filtering, only: :index
 
   def index
-    if params[:status].present?
-      current_user.admin? ? @rentals = Rental.all.filter_by_status(params[:status]).page(params[:pages]) : @rentals = current_user.rentals.filter_by_status(params[:status]).page(params[:page])
-    end
+    @rentals = apply_filter(@rentals)
 
-    if params[:checkout_date_init].present?
-      @rentals = if current_user.admin?
-                   Rental.all.filter_by_checkout(params[:checkout_date_init],
-                                                 params[:checkout_date_end]).page(params[:pages])
-                 else
-                   current_user.rentals.filter_by_checkout(
-                     params[:checkout_date_init], params[:checkout_date_end]
-                   ).page(params[:page])
-                 end
-    end
+    @rentals = @rentals.page(params[:page])
   end
 
   def show
@@ -71,11 +60,13 @@ class RentalsController < ApplicationController
     redirect_to root_path if Book.checked_out?(rental_params[:book_id])
   end
 
-  def filtering_params(params)
-    params.slice(:status, :checkout)
+  def apply_filter(data)
+    return data.filter_by_status(params[:status]) if params[:status].present?
+    return data.filter_by_checkout(params[:checkout_date_init], params[:checkout_date_end]) if params[:checkout_date_end].present?
+    data
   end
 
   def base_index_filtering
-    @rentals = current_user.admin? ? Rental.page(params[:page]) : current_user.rentals.page(params[:page])
+    @rentals = current_user.admin? ? Rental.all : current_user.rentals
   end
 end
