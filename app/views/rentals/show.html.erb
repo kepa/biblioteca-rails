@@ -4,7 +4,9 @@
 <p><b>Active:</b> <%= @rental.active %></p>
 <p><b>Book: </b> <%= link_to @rental.book, book_path(@rental.book_id) %></p>
 
-<% if current_user.admin? %>
-	<%= button_to "Finalize rental", rental_path(@rental), method: :patch%>
-	<%= button_to "Destroy rental", rental_path(@rental), method: :delete%>
+<% content_for :right_pane do %>
+	<% if current_user.admin? %>
+		<%= button_to "Finalize rental", rental_path(@rental), method: :patch%>
+		<%= button_to "Destroy rental", rental_path(@rental), method: :delete%>
+	<% end %>
 <% end %>

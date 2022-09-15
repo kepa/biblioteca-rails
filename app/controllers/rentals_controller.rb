@@ -20,6 +20,7 @@ class RentalsController < ApplicationController
 
   def new
     @rental = Rental.new
+    @book_id = params[:format]
   end
 
   def create
