@@ -1,0 +1,160 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+
+# == Gemspec ==
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+# == Style ==
+
+Style/Alias:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - spec/spec_helper.rb
+
+Style/BlockDelimiters:
+  Exclude:
+    - spec/**/*.rb
+
+Style/CaseEquality:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  EnforcedStyle: annotated
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - bin/**/*
+    - config/application.rb
+    - config/boot.rb
+    - config/environment.rb
+    - config/environments/*
+    - config/puma.rb
+    - config.ru
+    - Gemfile
+    - Rakefile
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+# == Layout ==
+
+Layout/ArrayAlignment:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HashAlignment:
+  EnforcedColonStyle: key
+  EnforcedHashRocketStyle: table
+
+Layout/IndentationConsistency:
+  EnforcedStyle: indented_internal_methods
+
+Layout/LineLength:
+  Exclude:
+    - bin/bundle
+
+Layout/SpaceAroundOperators:
+  Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBrackets: no_space
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+# == Lint ==
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*.rb
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+# == Naming ==
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: exception
+
+# == Metrics ==
+
+Metrics/BlockLength:
+  Exclude:
+    - config/routes.rb
+    - spec/**/*.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - bin/bundle
+
+Metrics/MethodLength:
+  Exclude:
+    - bin/bundle
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - bin/bundle
+
+# == Rspec ==
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - and
+    - with
+    - without
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+# == Rails ==
+Rails/SkipsModelValidations:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :rental do
     active { true }
@@ -7,6 +9,5 @@ FactoryBot.define do
     trait :returned do
       active { false }
     end
-
   end
 end
