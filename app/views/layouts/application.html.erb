@@ -22,15 +22,16 @@
           <%= link_to(root_path) do %>
             <h1>library_sys</h1>
           <% end %>
-          <%= link_to "Books", books_path %>
-          <%= link_to "Add User", new_user_path if user_signed_in? and current_user.admin?%>
-          <%= link_to "Add Book", new_book_path if user_signed_in? and current_user.admin?%>
-          <%= link_to "New Rental", new_rental_path if user_signed_in? and current_user.admin?%>
+          <% if user_signed_in? and current_user.admin? %>
+            <%= render 'layouts/admin_links' %>
+          <% elsif user_signed_in? %>  
+            <%= render 'layouts/links' %>
+          <% end %>
           <%= render 'layouts/search' %>
         </div>
         <div class="right-align">
           <% if user_signed_in? %>
-            <%= button_to 'Rentals', rentals_path, class:"btn", role:"group", method: :get %>
+            <%= button_to current_user.email, user_path(current_user), class:"btn", method: :get%>
             <%= button_to 'Sign-out', destroy_user_session_path, class:"btn", role:"group", method: :delete%>
 
           <% end %>
