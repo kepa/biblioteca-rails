@@ -62,6 +62,7 @@ class BooksController < ApplicationController
     redirect_to root_path unless current_user.admin?
   end
 
+  # Sets up all the filters that can be applied and its parameter names
   def filtering_params(params)
     params.slice(:title, :author, :category, :status)
   end

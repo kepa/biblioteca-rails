@@ -6,6 +6,7 @@ class RentalsController < ApplicationController
   before_action :base_index_filtering, only: :index
 
   def index
+    #Applies filter to collection of data depending on wich user is signed in
     @rentals = apply_filter(@rentals)
 
     @rentals = @rentals.page(params[:page])
@@ -60,12 +61,15 @@ class RentalsController < ApplicationController
     redirect_to root_path if Book.checked_out?(rental_params[:book_id])
   end
 
+  #Simple filtering given the parameters that are passed to the controller
   def apply_filter(data)
     return data.filter_by_status(params[:status]) if params[:status].present?
     return data.filter_by_checkout(params[:checkout_date_init], params[:checkout_date_end]) if params[:checkout_date_end].present?
+
     data
   end
 
+  #Logic necessary to only show normal users their rentals and admins all rentals
   def base_index_filtering
     @rentals = current_user.admin? ? Rental.all : current_user.rentals
   end
