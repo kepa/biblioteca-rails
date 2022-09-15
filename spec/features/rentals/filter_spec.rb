@@ -33,8 +33,9 @@ RSpec.describe "FilterRentals", type: :feature do
 
       it "should filter rentals#index results" do
         login_as(normal_user, :scope => :user)
-        visit books_path
-        fill_in 'Filter by checkout date:', with: true
+        visit rentals_path
+        fill_in "checkout_date_init", with: (DateTime.current - 4.days).strftime("%Y-%m-%d")
+        fill_in "checkout_date_end", with: (DateTime.current - 1.days).strftime("%Y-%m-%d")
         click_on 'Filter'
         expect(page).to have_selector('a.book-item', count: 2)
       end

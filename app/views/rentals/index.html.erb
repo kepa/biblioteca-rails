@@ -1,6 +1,6 @@
 <h1>Rentals</h1>
 
-
+<%= paginate @rentals %>
 <div class="library">
 <% @rentals.each do |rental|  %>
 	<%= link_to(rental, class: "book-item") do%>
@@ -10,4 +10,35 @@
 		
 	<% end %>
 <% end %>
+
+<% content_for :right_pane do %>
+
+	<div class="filters">
+	<h2> Filters:</h2>
+		<%= form_with url: rentals_path, method: :get do |form| %>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.label :checkout_date_init, "Start:" %></span>
+			  <%= form.date_field :checkout_date_init, class:"form-control" %>
+		  </div>
+
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.label :checkout_date_end, "End:" %></span>
+			  <%= form.date_field :checkout_date_end, class:"form-control" %>
+		  </div>
+		  <h2>Filter by status:</h2>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.radio_button :status, "true" %> </span>
+			  <%= form.label :status, "Active", class:"form-control" %> 
+		  </div>
+		  <div class="input-group">
+			  <span class="input-group-addon"><%= form.radio_button :status, "false" %></span>
+			  <%= form.label :status, "Inactive", class:"form-control" %> 
+		  </div>
+	  	<%= form.submit "Filter", class:"btn" %>
+	   <% end %>
+	</div>
+
+	<%= button_to "Add new book", new_book_path, method: :get if current_user.admin?%>
+<% end %>
+
 </div>

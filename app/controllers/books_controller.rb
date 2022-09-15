@@ -1,9 +1,11 @@
+require "pry"
+
 class BooksController < ApplicationController
   before_action :set_book, only: %i[show edit update destroy]
   before_action :only_admin, only: %i[new edit]
 
   def index
-    @books = Book.all
+    @books = Book.page(params[:page])
 
     #Simplifying the many filter calls, its called on demand now
 
@@ -25,8 +27,7 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_url(@book)
     else
-      flash[:notice] = "Invalid book creation"
-      render :new
+      render :new, status: :unprocessable_entity
     end
 
   end
@@ -39,7 +40,7 @@ class BooksController < ApplicationController
     if @book.update(book_params)
       redirect_to book_url(@book)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
 
   end
@@ -48,7 +49,7 @@ class BooksController < ApplicationController
     if @book.destroy and current_user.admin?
       redirect_to root_path
     else
-      render :show
+      render :show, flash: {notice: "Server error: can't delete book"}
     end
   end
 

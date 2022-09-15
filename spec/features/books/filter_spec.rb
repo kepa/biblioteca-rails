@@ -16,7 +16,7 @@ RSpec.describe "FilterBooks", type: :feature do
     it "should filter index results" do
       login_as(user, :scope => :user)
       visit books_path
-      fill_in 'Filter by author:', with: author
+      fill_in 'By author:', with: author
       click_on 'Filter'
       expect(page).to have_content(author)
       expect(page).to have_selector('a.book-item', count: 2)
@@ -37,7 +37,7 @@ RSpec.describe "FilterBooks", type: :feature do
     it "should filter index results" do
       login_as(user, :scope => :user)
       visit books_path
-      fill_in 'Filter by category:', with: category
+      fill_in 'By category:', with: category
       click_on 'Filter'
       expect(page).to have_content(category)
       expect(page).to have_selector('a.book-item', count: 2)

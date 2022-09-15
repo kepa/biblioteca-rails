@@ -1,15 +1,18 @@
 class RentalsController < ApplicationController
   before_action :set_rental, only: %i[show edit update destroy]
   before_action :book_checked_out, only: :create
+  before_action :base_index_filtering, only: :index
 
   def index
-    current_user.admin? ? @rentals = Rental.all : @rentals = current_user.rentals
 
-    #Simplifying the many filter calls, its called on demand now
-
-    filtering_params(params).each do |key, value|
-      @rentals = @rentals.public_send("filter_by_#{key}", value) if value.present?
+    if params[:status].present?
+      current_user.admin? ? @rentals = Rental.all.filter_by_status(params[:status]).page(params[:pages]) : @rentals = current_user.rentals.filter_by_status(params[:status]).page(params[:page])
     end
+
+    if params[:checkout_date_init].present?
+      current_user.admin? ? @rentals = Rental.all.filter_by_checkout(params[:checkout_date_init],params[:checkout_date_end]).page(params[:pages]) : @rentals = current_user.rentals.filter_by_checkout(params[:checkout_date_init],params[:checkout_date_end]).page(params[:page])
+    end
+
   end
 
   def show
@@ -67,6 +70,10 @@ class RentalsController < ApplicationController
 
   def filtering_params(params)
     params.slice(:status,:checkout)
+  end
+
+  def base_index_filtering
+    current_user.admin? ? @rentals = Rental.page(params[:page]) : @rentals = current_user.rentals.page(params[:page])
   end
 
 end

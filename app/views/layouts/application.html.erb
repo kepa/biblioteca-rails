@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Biblioteca</title>
+    <title>library_sys</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -21,26 +21,25 @@
             <h1>library_sys</h1>
           <% end %>
           <%= link_to "Books", books_path %>
+          <%= link_to "Add User", new_user_registration_path if user_signed_in? and current_user.admin?%>
         </div>
-        <div class="right-align">
+        <div class="right-align btn-group">
           <% if user_signed_in? %>
-            <%= button_to 'Rentals', rentals_path, method: :get %>
-            <%= button_to 'Sign-out', destroy_user_session_path, method: :delete%>
+            <%= button_to 'Rentals', rentals_path, class:"btn", role:"group", method: :get %>
+            <%= button_to 'Sign-out', destroy_user_session_path, class:"btn", role:"group", method: :delete%>
           <% else %>
-            <%= button_to 'Sign-in', new_user_session_path, method: :get%>
+            <%= button_to 'Sign-in', new_user_session_path,class:"btn", method: :get%>
           <% end %>
         </div>
       </div>
     </div>
     
     <div class="main-cont">
-
-      <% unless notice.nil? or alert.nil? %>
-        <%= render 'alerts' %>
-      <% end %>
-
+      <div><%= notice %></div>
+      <div><%= alert %></div>
 
       <div class="center-cont">
+        
         <div class="left-pane">
           <%= yield %>
         </div>

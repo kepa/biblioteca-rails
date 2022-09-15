@@ -19,8 +19,7 @@ RSpec.describe "CreateNewRental", type: :feature do
     it "should not rent a book if checked out" do
       login_as(normal_user, :scope => :user)
       visit book_path(book_checked_out)
-      click_on 'Take out this book'
-      expect(current_path).to eql(root_path)
+      expect(page).to_not have_content("Take out this book")
       expect(normal_user.rentals.count).to eql(0)
     end
 
