@@ -49,6 +49,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'kaminari'
 gem 'bootstrap', '~> 5.1.3'
+gem 'faker', '~> 2.21'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
@@ -59,7 +60,6 @@ group :development, :test do
   gem 'cucumber'
   gem 'debug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails', '~> 6.2'
-  gem 'faker', '~> 2.21'
   gem 'pry'
   gem 'rspec-rails'
   gem 'simplecov'
