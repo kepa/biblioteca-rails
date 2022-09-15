@@ -15,7 +15,9 @@ class Rental < ApplicationRecord
   def init_check_out_book
     self.active = true
     self.checkout_date = Time.now
-    Book.find(book_id).toggle_check_out
+    book = Book.find(book_id)
+    book.toggle_check_out
+    # self.book_title = book.title
   end
 
   def finalize
@@ -29,8 +31,5 @@ class Rental < ApplicationRecord
   end
 
   def book
-    Book.find(book_id).title
-  rescue ActiveRecord::RecordNotFound
-    'BOOK NOT FOUND'
-  end
+    # book_title
 end
