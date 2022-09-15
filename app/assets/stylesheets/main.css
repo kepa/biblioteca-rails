@@ -109,3 +109,7 @@ body {
 .title-show {
 	display: flex;
 }
+
+.right-pane h3 {
+	font-size: 14pt;
+}
