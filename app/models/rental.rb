@@ -17,7 +17,7 @@ class Rental < ApplicationRecord
     self.checkout_date = Time.now
     book = Book.find(book_id)
     book.toggle_check_out
-    # self.book_title = book.title
+    self.book_title = book.title
   end
 
   def finalize
@@ -31,5 +31,6 @@ class Rental < ApplicationRecord
   end
 
   def book
-    # book_title
+     book_title
+  end
 end
