@@ -52,6 +52,31 @@ RSpec.describe Book, type: :model do
 
   end
 
+  context "#filter_by_title" do
+
+    describe "select books by title:" do
+      let(:title) {::Faker::Book.title}
+
+      before do
+
+        Book.create(title: title, category: ::Faker::Book.genre, author: ::Faker::Book.author)
+
+      end
+
+      it "should return books with same title" do
+        result = Book.filter_by_title(title)
+        expect(result.count).to eql(1)
+      end
+
+      it "should not return books with non existant title" do
+        result = Book.filter_by_title("test")
+        expect(result.count).to eql(0)
+      end
+
+    end
+
+  end
+
   context "#filter_by_author" do
 
     describe "select books by author:" do

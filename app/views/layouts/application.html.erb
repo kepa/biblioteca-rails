@@ -22,11 +22,13 @@
           <% end %>
           <%= link_to "Books", books_path %>
           <%= link_to "Add User", new_user_registration_path if user_signed_in? and current_user.admin?%>
+          <%= render 'layouts/search' %>
         </div>
-        <div class="right-align btn-group">
+        <div class="right-align">
           <% if user_signed_in? %>
             <%= button_to 'Rentals', rentals_path, class:"btn", role:"group", method: :get %>
             <%= button_to 'Sign-out', destroy_user_session_path, class:"btn", role:"group", method: :delete%>
+
           <% else %>
             <%= button_to 'Sign-in', new_user_session_path,class:"btn", method: :get%>
           <% end %>

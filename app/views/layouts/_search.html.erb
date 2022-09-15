@@ -1,0 +1,10 @@
+<%= form_with url: books_path, method: :get do |form| %>
+  <div class="input-group">
+	  <span class="input-group-addon"><%= form.label :title, "Search:" %></span>
+	  	<%= form.text_field :title, class:"form-control" %>
+	  <span class="input-group-btn">
+		<%= form.submit "Go", class:"btn" %>	
+  	  </span>
+  </div>
+  	
+<% end %>

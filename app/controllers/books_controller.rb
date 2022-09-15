@@ -68,7 +68,7 @@ class BooksController < ApplicationController
   end
 
   def filtering_params(params)
-    params.slice(:author,:category,:status)
+    params.slice(:title,:author,:category,:status)
   end
 
 end

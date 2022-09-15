@@ -17,7 +17,7 @@ RSpec.describe "FinalizeRental", type: :feature do
       visit rental_path(rental)
       click_on 'Finalize rental'
 
-      expect(page).to have_content("Active: false")
+      expect(page).to have_content("Inactive")
       expect(normal_user.rentals.first.active).to be false
     end
 

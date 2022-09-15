@@ -2,10 +2,28 @@ require 'rails_helper'
 
 RSpec.describe "FilterBooks", type: :feature do
 
+  describe "Filtering by title:" do
+    let(:user) { create(:user) }
+    let(:title) {::Faker::Book.title}
+
+    before do
+        Book.create(title: title, category: ::Faker::Book.genre, author: ::Faker::Book.author)
+    end
+
+    it "should filter index results" do
+      login_as(user, :scope => :user)
+      visit root_path
+      fill_in 'Search:', with: title
+      click_on 'Go'
+      expect(page).to have_content(title)
+      expect(page).to have_selector('a.book-item', count: 1)
+    end
+
+  end
+
   describe "Filtering by author:" do
     let(:user) { create(:user) }
     let(:author) {::Faker::Book.author}
-    let(:category) {::Faker::Book.genre}
 
     before do
       (1..2).each do
