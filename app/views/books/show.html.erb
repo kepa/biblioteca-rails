@@ -1,9 +1,17 @@
-
-<div class="book-info">
+<div class="title-show">
 	<h1><%= @book.title %></h1>
+	<div>
+		<% unless @book.check_out %>
+			<span class="label label-success">Available</span>
+		<% else %>
+			<span class="label label-danger">Unavailable</span>
+		<% end %>		
+	</div>
+</div>
+
+<div>
 	<p><b>Author:</b> <%= @book.author %></p>
 	<p><b>Category:</b> <%= @book.category %></p>
-	<p><b>Checked out:</b> <%= @book.check_out %></p>
 </div>
 
 <% content_for :right_pane do %>
@@ -16,7 +24,7 @@
 	<% unless current_user.admin? %>
 		<%= button_to "Take out this book", rentals_path(:rental => {:book_id => @book.id, :user_id => current_user.id}), method: :post unless @book.check_out %>
 	<% end %>
-
+	<%= button_to "Back", books_path, method: :get %>
 <% end %>
 
 

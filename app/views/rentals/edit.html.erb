@@ -1,2 +1,6 @@
-<h1>Rentals#edit</h1>
-<p>Find me in app/views/rentals/edit.html.erb</p>
+<h1>Edit rental</h1>
+<%= render 'form' %>
+
+<% content_for :right_pane do %>
+  <%= button_to "Back", rental_path(@rental), class: "btn" , method: :get%>
+<% end %>

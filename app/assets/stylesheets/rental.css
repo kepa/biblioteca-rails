@@ -1,0 +1,24 @@
+.rental-dates {
+	display: flex;
+	width: 100%;
+	/*align-items: center;*/
+	justify-content: center;
+	gap: 20px;
+}
+
+.due-date {
+	text-align: center;
+	width: 40%;
+	padding: 20px;
+	background-color: #5bc0de;
+	border-radius: 15px;
+	color: white;
+}
+
+.due-date-start {
+	background-color: lightgrey;
+}
+
+.due-date b {
+	font-weight: 900;
+}

@@ -1,13 +1,24 @@
-<%= form_for(@rental) do |f| %>
+<%= form_with(model: @rental) do |f| %>
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
+<% if @rental.errors.any? %>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@rental.errors.count, "error") %> prohibited this rental from being saved:</h2>
+    <ul>
+      <% @rental.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+   <div class="input-group">
+     <span class="input-group-addon"><%= f.label :user_id, "User #" %></span>
+     <%= f.number_field :user_id, class:"form-control" %>
   </div>
 
-  <div class="field">
-    <%= f.label :book_id %><br />
-    <%= f.text_field :book_id %>
+   <div class="input-group">
+     <span class="input-group-addon"><%= f.label :book_id, "Book #"  %></span>
+    <%= f.number_field :book_id, value: @book_id , class:"form-control" %>
   </div>
 
   <div class="actions">

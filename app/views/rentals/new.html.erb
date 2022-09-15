@@ -1,2 +1,6 @@
-<h1>Rentals#new</h1>
+<h1>New rental</h1>
 <%= render 'form' %>
+
+<% content_for :right_pane do %>
+  <%= button_to "Back", book_path(@book_id), class: "btn" , method: :get%>
+<% end %>

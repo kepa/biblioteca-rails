@@ -17,12 +17,8 @@
 	<% end %>
 <% end %>
 </div>
+<%= paginate @books %>
 
-<%if current_user.admin?%>
-
-	
-
-<% end %>
 
 <% content_for :right_pane do %>
 
@@ -39,7 +35,7 @@
 			  <%= form.text_field :category, class:"form-control" %> 
 		  </div>
 
-		  <h2>Filter by availability:</h2>
+		  <h3>Filter by availability:</h3>
 		  <div class="input-group">
 			  <span class="input-group-addon"><%= form.radio_button :status, "false" %> </span>
 			  <%= form.label :status, "Available to rent", class:"form-control" %> 

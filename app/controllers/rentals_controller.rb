@@ -16,10 +16,12 @@ class RentalsController < ApplicationController
   end
 
   def show
+    @book = Book.find(@rental.book_id)
   end
 
   def new
     @rental = Rental.new
+    @book_id = params[:format]
   end
 
   def create

@@ -16,6 +16,7 @@
 	<div class="filters">
 	<h2> Filters:</h2>
 		<%= form_with url: rentals_path, method: :get do |form| %>
+		<h3>Filter by checkout date:</h3>
 		  <div class="input-group">
 			  <span class="input-group-addon"><%= form.label :checkout_date_init, "Start:" %></span>
 			  <%= form.date_field :checkout_date_init, class:"form-control" %>
@@ -25,7 +26,7 @@
 			  <span class="input-group-addon"><%= form.label :checkout_date_end, "End:" %></span>
 			  <%= form.date_field :checkout_date_end, class:"form-control" %>
 		  </div>
-		  <h2>Filter by status:</h2>
+		  <h3>Filter by status:</h3>
 		  <div class="input-group">
 			  <span class="input-group-addon"><%= form.radio_button :status, "true" %> </span>
 			  <%= form.label :status, "Active", class:"form-control" %> 
@@ -38,7 +39,6 @@
 	   <% end %>
 	</div>
 
-	<%= button_to "Add new book", new_book_path, method: :get if current_user.admin?%>
 <% end %>
 
 </div>
