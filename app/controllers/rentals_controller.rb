@@ -1,18 +1,25 @@
+# frozen_string_literal: true
+
 class RentalsController < ApplicationController
-  before_action :set_rental, only: %i[show edit update destroy]
+  before_action :set_rental, only: [:show, :edit, :update, :destroy]
   before_action :book_checked_out, only: :create
   before_action :base_index_filtering, only: :index
 
   def index
-
     if params[:status].present?
       current_user.admin? ? @rentals = Rental.all.filter_by_status(params[:status]).page(params[:pages]) : @rentals = current_user.rentals.filter_by_status(params[:status]).page(params[:page])
     end
 
     if params[:checkout_date_init].present?
-      current_user.admin? ? @rentals = Rental.all.filter_by_checkout(params[:checkout_date_init],params[:checkout_date_end]).page(params[:pages]) : @rentals = current_user.rentals.filter_by_checkout(params[:checkout_date_init],params[:checkout_date_end]).page(params[:page])
+      @rentals = if current_user.admin?
+                   Rental.all.filter_by_checkout(params[:checkout_date_init],
+                                                 params[:checkout_date_end]).page(params[:pages])
+                 else
+                   current_user.rentals.filter_by_checkout(
+                     params[:checkout_date_init], params[:checkout_date_end]
+                   ).page(params[:page])
+                 end
     end
-
   end
 
   def show
@@ -25,7 +32,6 @@ class RentalsController < ApplicationController
   end
 
   def create
-
     @rental = Rental.new(rental_params)
 
     if @rental.save
@@ -33,11 +39,9 @@ class RentalsController < ApplicationController
     else
       redirect_to root_path
     end
-
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @rental.finalize
@@ -47,13 +51,10 @@ class RentalsController < ApplicationController
     else
       redirect_to root_path
     end
-
   end
 
   def destroy
-    if @rental.destroy
-      redirect_to root_path
-    end
+    redirect_to root_path if @rental.destroy
   end
 
   private
@@ -71,11 +72,10 @@ class RentalsController < ApplicationController
   end
 
   def filtering_params(params)
-    params.slice(:status,:checkout)
+    params.slice(:status, :checkout)
   end
 
   def base_index_filtering
-    current_user.admin? ? @rentals = Rental.page(params[:page]) : @rentals = current_user.rentals.page(params[:page])
+    @rentals = current_user.admin? ? Rental.page(params[:page]) : current_user.rentals.page(params[:page])
   end
-
 end

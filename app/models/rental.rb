@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class Rental < ApplicationRecord
   belongs_to :user
 
-  scope :filter_by_status, -> (status) {where active: status}
-  scope :filter_by_checkout, -> (init_date, end_date) {where("checkout_date >= ? and checkout_date < ?", init_date, end_date) }
+  scope :filter_by_status, ->(status) { where active: status }
+  scope :filter_by_checkout, lambda { |init_date, end_date|
+                               where('checkout_date >= ? and checkout_date < ?', init_date, end_date)
+                             }
 
   before_create :init_check_out_book
 
@@ -27,7 +31,6 @@ class Rental < ApplicationRecord
   def book
     Book.find(book_id).title
   rescue ActiveRecord::RecordNotFound
-    "BOOK NOT FOUND"
+    'BOOK NOT FOUND'
   end
-
 end
