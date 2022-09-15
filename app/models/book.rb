@@ -14,7 +14,7 @@ class Book < ApplicationRecord
     Book.find(id).check_out
   end
 
-  #Using a logic gate to toggle the checkout status when needed
+  # Using a logic gate to toggle the checkout status when needed
   def toggle_check_out
     self.check_out ^= true
     save
