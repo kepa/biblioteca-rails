@@ -1,0 +1,63 @@
+name: Verify
+on: [push]
+
+jobs:
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_db_test
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_db_test
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ci_db_test
+          POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
+        run: bundle exec rspec
+
+  deploy:
+      name: Deploy
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      needs: Tests
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@master
+        - name: Deploy To Heroku
+          uses: akhileshns/heroku-deploy@v3.6.8
+          with:
+            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+            heroku_app_name: "secure-sea-13705" 
+            heroku_email: "95.lucas@gmail.com"
