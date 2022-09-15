@@ -73,4 +73,5 @@ class RentalsController < ApplicationController
   def base_index_filtering
     @rentals = current_user.admin? ? Rental.all : current_user.rentals
   end
+
 end

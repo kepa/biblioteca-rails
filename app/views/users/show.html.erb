@@ -1,0 +1,22 @@
+<h1><%= @user.name %></h1>
+
+<h2>Rentals</h2>
+<div class="library">
+<% @rentals.each do |rental|  %>
+	<%= link_to(rental, class: "book-item") do%>
+		<h2>Rental #<%= rental.id %>: <%= rental.book %></h2>
+		<p><b>Checkout date:</b> <%= rental.checkout_date %></p>
+		
+		
+	<% end %>
+<% end %>
+</div>
+
+<% content_for :right_pane do %>
+	<% if current_user.admin? %>
+		<%= button_to "Delete user", user_path(@user), method: :delete%>
+		<%= button_to "Edit profile", edit_user_path(@user), method: :get%>
+	<% else %>
+		<%= button_to "Edit profile", edit_user_registration_path(current_user), method: :get%>
+	<% end %>
+<% end %>

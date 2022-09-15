@@ -2,5 +2,5 @@
 <%= render 'form' %>
 
 <% content_for :right_pane do %>
-  <%= button_to "Back", book_path(@book_id), class: "btn" , method: :get%>
+  <%= button_to "Back", book_path(@book_id), class: "btn" , method: :get unless @book_id.nil?%>
 <% end %>

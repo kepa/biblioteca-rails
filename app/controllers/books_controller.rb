@@ -3,6 +3,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :only_admin, only: [:new, :edit]
+  skip_before_action :authorized, only: :index
 
   def index
     @books = Book.page(params[:page])

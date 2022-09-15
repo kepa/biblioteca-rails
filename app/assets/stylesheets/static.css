@@ -1,0 +1,26 @@
+.tool-box {
+	display: flex;
+	width: 100%;
+	/*align-items: center;*/
+	justify-content: center;
+	gap: 20px;
+}
+
+.admin-links {
+	text-align: center;
+	width: 40%;
+	padding: 20px;
+	background-color: #5bc0de;
+	border-radius: 15px;
+	color: white;
+}
+
+.admin-links:hover {
+	text-decoration: none;
+	background-color: #1b3a43;
+	color: white;
+}
+
+.search {
+	flex: 4;
+}

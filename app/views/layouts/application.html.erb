@@ -14,23 +14,26 @@
   </head>
 
   <body>
+
+
     <div class="navbar">
       <div class="navbar-center-cont">
         <div class="left-align">
           <%= link_to(root_path) do %>
             <h1>library_sys</h1>
           <% end %>
-          <%= link_to "Books", books_path %>
-          <%= link_to "Add User", new_user_registration_path if user_signed_in? and current_user.admin?%>
+          <% if user_signed_in? and current_user.admin? %>
+            <%= render 'layouts/admin_links' %>
+          <% elsif user_signed_in? %>  
+            <%= render 'layouts/links' %>
+          <% end %>
           <%= render 'layouts/search' %>
         </div>
         <div class="right-align">
           <% if user_signed_in? %>
-            <%= button_to 'Rentals', rentals_path, class:"btn", role:"group", method: :get %>
+            <%= button_to current_user.email, user_path(current_user), class:"btn", method: :get%>
             <%= button_to 'Sign-out', destroy_user_session_path, class:"btn", role:"group", method: :delete%>
 
-          <% else %>
-            <%= button_to 'Sign-in', new_user_session_path,class:"btn", method: :get%>
           <% end %>
         </div>
       </div>

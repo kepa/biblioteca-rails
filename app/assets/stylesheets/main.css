@@ -60,6 +60,11 @@ body {
 	padding: 10px 0;
 }
 
+.main-cont h2 {
+	font-size: 32pt;
+	padding: 10px 0;
+}
+
 .center-cont {
 	display: flex;
 	padding: 2%;
@@ -71,6 +76,7 @@ body {
 .left-pane {
 	flex: 2;
 	border-right: 2px solid black;
+	padding-right: 20px;
 }
 
 .left-pane b {
