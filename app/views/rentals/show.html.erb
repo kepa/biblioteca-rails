@@ -1,9 +1,27 @@
-<h1>Rental # <%= @rental.id %></h1>
-<p><b>Check-out date</b> <%= @rental.checkout_date %></p>
-<p><b>Check-in date</b> <%= @rental.checkin_date %></p>
-<p><b>Active:</b> <%= @rental.active %></p>
-<p><b>Book: </b> <%= link_to @rental.book, book_path(@rental.book_id) %></p>
+<div class="title-show">
+	<h1>Rental # <%= @rental.id %> </h1>
+	<div>
+	<% if @rental.active %>
+		<span class="label label-success">Active</span>
+	<% else %>
+		<span class="label label-danger">Inactive</span>
+	<% end %>		
+	</div>
+</div>
 
+<div class="rental-dates">
+	<p><b>Check-out date:</b> <%= @rental.checkout_date %></p>
+	<p><b>Check-in date:</b> <%= @rental.checkin_date %></p>
+</div>
+
+<div class="library">
+	<h2>Book: </h2>
+	<%= link_to(book_path(@book), class: "book-item") do%>
+		<h2><%= @rental.book%> </h2>
+		<p><b>Author:</b>	<%= @book.author %></p>
+		<p><b>Caregory:</b> <%= @book.category %></p>
+	<% end %>
+</div>
 <% content_for :right_pane do %>
 	<% if current_user.admin? %>
 		<%= button_to "Finalize rental", rental_path(@rental), method: :patch%>

@@ -16,6 +16,7 @@ class RentalsController < ApplicationController
   end
 
   def show
+    @book = Book.find(@rental.book_id)
   end
 
   def new
