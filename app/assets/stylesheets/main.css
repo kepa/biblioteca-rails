@@ -72,6 +72,10 @@ body {
 	border-right: 2px solid black;
 }
 
+.left-pane b {
+	font-weight: 900;
+}
+
 .right-pane {
 	flex: 1;
 	width: 100%;
