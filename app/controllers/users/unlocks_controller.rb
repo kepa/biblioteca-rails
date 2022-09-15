@@ -12,6 +12,6 @@ module Users
 
     # The path used after sending unlock password instructions
 
-    The path used after unlocking the resource
+    #The path used after unlocking the resource
   end
 end
