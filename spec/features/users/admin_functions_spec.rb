@@ -31,6 +31,16 @@ RSpec.describe 'AdminFunctions', type: :feature do
       expect(page).to have_content("Editing #{normal_user.name}")
     end
 
+    it 'should let admin user edit any profile atribute' do
+      login_as(admin_user, scope: :user)
+      visit user_path(normal_user)
+      click_on 'Edit profile'
+      fill_in 'Name', with: "test"
+      click_on 'Update'
+
+      expect(page).to have_content("test")
+    end
+
     it 'should let admin user make users admin' do
       login_as(admin_user, scope: :user)
       visit user_path(normal_user)
@@ -50,7 +60,7 @@ RSpec.describe 'AdminFunctions', type: :feature do
       visit user_path(normal_user)
       click_on 'Delete user'
 
-      expect(current_path).to eql(root_path)
+      expect(current_path).to eql(users_path)
     end
 
   end

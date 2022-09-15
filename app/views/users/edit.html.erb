@@ -1,0 +1,37 @@
+<h2>Editing <%= @user.name %></h2>
+
+<%= form_for(@user) do |f| %>
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <p>Set admin privaliges?</p>
+      <%= f.check_box :admin %>
+      <%= f.label :admin, true %>
+    </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+
