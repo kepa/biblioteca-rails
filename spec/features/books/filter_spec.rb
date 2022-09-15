@@ -14,8 +14,8 @@ RSpec.describe 'FilterBooks', type: :feature do
     it 'should filter index results' do
       login_as(user, scope: :user)
       visit root_path
-      fill_in 'Search:', with: title
-      click_on 'Go'
+      fill_in 'title', with: title
+      click_on 'commit'
       expect(page).to have_content(title)
       expect(page).to have_selector('a.book-item', count: 1)
     end
