@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Biblioteca</title>
+    <title>library_sys</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -21,6 +21,7 @@
             <h1>library_sys</h1>
           <% end %>
           <%= link_to "Books", books_path %>
+          <%= link_to "Add User", new_user_registration_path if current_user.admin?%>
         </div>
         <div class="right-align btn-group">
           <% if user_signed_in? %>
