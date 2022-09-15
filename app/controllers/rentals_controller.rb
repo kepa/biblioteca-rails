@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class RentalsController < ApplicationController
-  before_action :authorized
   before_action :set_rental, only: [:show, :edit, :update, :destroy]
   before_action :book_checked_out, only: :create
   before_action :base_index_filtering, only: :index
@@ -75,7 +74,4 @@ class RentalsController < ApplicationController
     @rentals = current_user.admin? ? Rental.all : current_user.rentals
   end
 
-  def authorized
-    redirect_to root_path, flash: {notice: 'You must log-in!'} unless user_signed_in?
-  end
 end

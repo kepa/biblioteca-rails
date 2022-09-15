@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_only
-  before_action :admins_only, only: :index
+  before_action :admins_only, only: [:index, :new]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
 
@@ -12,6 +12,21 @@ class UsersController < ApplicationController
     @rentals = @user.rentals
   end
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.create(user_params)
+
+    if @user.save
+      redirect_to users_path, flash: {notice: 'User created!'}
+    else
+      render :new, status: :unprocessable_entity
+    end
+
+  end
+
   def edit
   end
 
@@ -19,7 +34,7 @@ class UsersController < ApplicationController
      if @user.update(user_params)
        redirect_to user_url(@user)
      else
-       render 'edit'
+       render :edit, status: :unprocessable_entity
      end
    end
 
@@ -36,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :admin)
+    params.require(:user).permit(:name, :email, :admin, :password)
   end
 
   def logged_in_only

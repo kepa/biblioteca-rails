@@ -21,7 +21,7 @@
             <h1>library_sys</h1>
           <% end %>
           <%= link_to "Books", books_path %>
-          <%= link_to "Add User", new_user_registration_path if user_signed_in? and current_user.admin?%>
+          <%= link_to "Add User", new_user_path if user_signed_in? and current_user.admin?%>
           <%= render 'layouts/search' %>
         </div>
         <div class="right-align">
