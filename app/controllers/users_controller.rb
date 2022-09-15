@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :logged_in_only
   before_action :admins_only, only: [:index, :new]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -52,10 +51,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :admin, :password)
-  end
-
-  def logged_in_only
-    redirect_to root_path, flash: {notice: 'You must log-in!'} unless user_signed_in?
   end
 
   def admins_only
