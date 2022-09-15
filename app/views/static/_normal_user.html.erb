@@ -1,3 +1,11 @@
 <h1>Welcome back, <%= current_user.name %>!</h1>
 
-<h1>Your rentals:</h1>
+<h2>Your rentals:</h2>
+<div class="library">
+<% current_user.rentals.each do |rental|  %>
+	<%= link_to(rental, class: "book-item") do%>
+		<h2>Rental #<%= rental.id %>: <%= rental.book %></h2>
+		<p><b>Checkout date:</b> <%= rental.checkout_date %></p>
+	<% end %>
+<% end %>
+</div>

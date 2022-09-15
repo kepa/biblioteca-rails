@@ -1,2 +1,11 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>All Users</h1>
+<div class="library">
+<% @users.each do |user|  %>
+	<%= link_to(user, class: "book-item ") do%>
+		<h2><%= user.name %> </h2>
+		<p><b>Admin:</b>	<%= user.admin %></p>
+		<p><b>Created-at:</b> <%= user.created_at %></p>
+		
+	<% end %>
+<% end %>
+</div>

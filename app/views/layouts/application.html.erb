@@ -22,6 +22,7 @@
           <%= link_to(root_path) do %>
             <h1>library_sys</h1>
           <% end %>
+            <%= link_to "Books", books_path %>
           <% if user_signed_in? and current_user.admin? %>
             <%= render 'layouts/admin_links' %>
           <% elsif user_signed_in? %>  
