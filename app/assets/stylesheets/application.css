@@ -17,6 +17,6 @@
  *= book.css
  *= rental.css
  *= static.css
- *= boostrap.css
- *= boostrap-theme.css
+ @import "bootstrap";
+
  */

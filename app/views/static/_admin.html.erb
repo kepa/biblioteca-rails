@@ -1,0 +1,8 @@
+<h1>Welcome back, <%= current_user.name %>!</h1>
+
+<h2>Admin shortcuts:</h2>
+<div class="tool-box">
+	<%= link_to "Add User", new_user_path, class:"admin-links" %>
+	<%= link_to "Add Book", new_book_path, class:"admin-links" %>
+    <%= link_to "New Rental", new_rental_path, class:"admin-links" %>
+</div>
