@@ -4,6 +4,7 @@ class Book < ApplicationRecord
   validates_presence_of :title, :author, :category
   validates_uniqueness_of :title
 
+  # Using Activerecord scopes for filtering
   scope :filter_by_title, ->(title) { where('title like ?', "%#{title}%") }
   scope :filter_by_author, ->(author) { where('author like ?', "%#{author}%") }
   scope :filter_by_category, ->(category) { where category: }
@@ -13,6 +14,7 @@ class Book < ApplicationRecord
     Book.find(id).check_out
   end
 
+  #Using a logic gate to toggle the checkout status when needed
   def toggle_check_out
     self.check_out ^= true
     save
