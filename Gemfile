@@ -59,6 +59,11 @@ group :development, :test do
   gem 'simplecov'
   gem 'cucumber'
   gem 'capybara'
+
+  gem 'rubocop', '~> 1.29', '>= 1.29.1'
+  gem 'rubocop-rails', '~> 2.14', '>= 2.14.2'
+  gem 'rubocop-rspec', '~> 2.10'
+
 end
 
 group :development do
