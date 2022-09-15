@@ -1,2 +1,6 @@
 <h1>Editing: <%= @book.title %></h1>
 <%= render 'form'%>
+
+<% content_for :right_pane do %>
+  <%= button_to "Back", book_path(@book), class: "btn", method: :get%>
+<% end %>
